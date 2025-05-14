@@ -117,7 +117,7 @@ public class ClienteConversor extends JFrame {
         // Intentar conectar al servidor al iniciar
         SwingUtilities.invokeLater(new Runnable() {
             @Override
-            public void run() {
+            public void run() { // Intentar conectar al servidor
                 conectarAlServidor();
                 if (socket != null && !socket.isClosed()) {
                     botonConectar.setText("Desconectar");
@@ -134,16 +134,17 @@ public class ClienteConversor extends JFrame {
         });
     }
     
-    private void conectarAlServidor() {
+    private void conectarAlServidor() { // Método para conectar al servidor
+        // Verificar si ya estamos conectados
         try {
-            socket = new Socket(HOST, PUERTO);
+            socket = new Socket(HOST, PUERTO); // Crear socket para conexión
             salida = new PrintWriter(socket.getOutputStream(), true);
             entrada = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             
             etiquetaEstado.setText("Estado: Conectado al servidor " + HOST + ":" + PUERTO);
             etiquetaEstado.setForeground(new Color(0, 128, 0)); // Verde
             
-        } catch (IOException e) {
+        } catch (IOException e) { // Manejar excepciones de conexión
             etiquetaEstado.setText("Estado: Error al conectar - " + e.getMessage());
             etiquetaEstado.setForeground(Color.RED);
             
@@ -157,7 +158,8 @@ public class ClienteConversor extends JFrame {
         }
     }
     
-    private void desconectarDelServidor() {
+    private void desconectarDelServidor() { // Método para desconectar del servidor
+        // Verificar si ya estamos desconectados
         try {
             if (entrada != null) entrada.close();
             if (salida != null) salida.close();
@@ -171,7 +173,7 @@ public class ClienteConversor extends JFrame {
         }
     }
     
-    private void enviarSolicitudAlServidor() {
+    private void enviarSolicitudAlServidor() { // Método para enviar la solicitud al servidor
         // Verificar que estemos conectados al servidor
         if (socket == null || socket.isClosed()) {
             etiquetaResultado.setText("No hay conexión con el servidor");

@@ -31,6 +31,7 @@ public class ServidorConversor {
     
     // Clase interna que maneja las comunicaciones con un cliente específico
     private static class ManejadorCliente extends Thread {
+        // Atributos para manejar la conexión del cliente
         private Socket clienteSocket;
         private BufferedReader entrada;
         private PrintWriter salida;
@@ -39,7 +40,7 @@ public class ServidorConversor {
             this.clienteSocket = socket;
         }
         
-        public void run() {
+        public void run() { // Método que se ejecuta al iniciar el hilo
             try {
                 // Configurar los streams de entrada y salida
                 entrada = new BufferedReader(new InputStreamReader(clienteSocket.getInputStream()));
